@@ -118,6 +118,11 @@ RUN \
   chmod 755 -R /usr/lib/dovecot/sieve-pipe /usr/lib/dovecot/sieve-filter /usr/lib/dovecot/sieve-global
 
 # -----------------------------------------------
+# --- OAUTH2 ------------------------------------
+# -----------------------------------------------
+COPY target/dovecot/auth-oauth2.inc /etc/dovecot/conf.d/
+
+# -----------------------------------------------
 # --- LDAP & SpamAssassin's Cron ----------------
 # -----------------------------------------------
 
