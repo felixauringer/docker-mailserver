@@ -1,0 +1,10 @@
+client_id = id
+client_secret = secret
+introspection_mode = post
+introspection_url = http://keycloak:8080/auth/realms/master/protocol/openid-connect/token/introspect
+force_introspection = yes
+username_attribute = email
+use_grant_password = no
+pass_attrs = pass=%{oauth2:access_token}
+tls_ca_cert_file = /etc/ssl/certs/ca-certificates.crt
+

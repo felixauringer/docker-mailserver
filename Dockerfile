@@ -121,6 +121,7 @@ RUN \
 # --- OAUTH2 ------------------------------------
 # -----------------------------------------------
 COPY target/dovecot/auth-oauth2.inc /etc/dovecot/conf.d/
+COPY target/dovecot/dovecot-oauth2.conf.ext /etc/dovecot/
 
 # -----------------------------------------------
 # --- LDAP & SpamAssassin's Cron ----------------
