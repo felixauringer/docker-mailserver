@@ -112,6 +112,7 @@ function register_functions
   fi
 
   [[ ${ENABLE_LDAP} -eq 1 ]] && _register_setup_function '_setup_ldap'
+  [[ ${ENABLE_OAUTH2} -eq 1 ]] && _register_setup_function '_setup_oauth2'
   [[ ${ENABLE_POSTGREY} -eq 1 ]] && _register_setup_function '_setup_postgrey'
   [[ ${ENABLE_SASLAUTHD} -eq 1 ]] && _register_setup_function '_setup_saslauthd'
   [[ ${POSTFIX_INET_PROTOCOLS} != 'all' ]] && _register_setup_function '_setup_postfix_inet_protocols'
