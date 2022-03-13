@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# TODO: Adapt for compatibility with LDAP
+# TODO: Adapt for compatibility with LDAP and OAUTH2
 # Only the cert renewal change detection may be relevant for LDAP?
 
 # shellcheck source=./helpers/index.sh
@@ -19,7 +19,7 @@ _notify 'task' "${LOG_DATE} Start check-for-changes script."
 cd /tmp/docker-mailserver || exit 1
 
 # check postfix-accounts.cf exist else break
-if [[ ! -f postfix-accounts.cf ]] && [[ ${ENABLE_OAUTH2} -eq 0 ]]
+if [[ ! -f postfix-accounts.cf ]]
 then
   _notify 'inf' "${LOG_DATE} postfix-accounts.cf is missing! This should not run! Exit!"
   exit 0
