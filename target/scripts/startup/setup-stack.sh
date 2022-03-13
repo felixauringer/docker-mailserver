@@ -297,9 +297,9 @@ function _setup_dovecot_local_user
 
   if ! grep '@' /tmp/docker-mailserver/postfix-accounts.cf 2>/dev/null | grep -q '|'
   then
-    if [[ ${ENABLE_LDAP} -eq 0 ]]
+    if [[ ${ENABLE_LDAP} -eq 0 ]] && [[ ${ENABLE_OAUTH2} -eq 0 ]]
     then
-      _shutdown 'Unless using LDAP, you need at least 1 email account to start Dovecot.'
+      _shutdown 'Unless using LDAP or OAUTH2, you need at least 1 email account to start Dovecot.'
     fi
   fi
 }
@@ -398,6 +398,24 @@ function _setup_ldap
 
   # shellcheck disable=SC2016
   sed -i 's|mydestination = \$myhostname, |mydestination = |' /etc/postfix/main.cf
+
+  return 0
+}
+
+
+function _setup_oauth2
+{
+  _notify 'task' 'Setting up OAUTH2'
+
+  _notify 'inf' "Configuring dovecot OAUTH2"
+  configomat.sh "OAUTH2_" "/etc/dovecot/dovecot-oauth2.conf.ext"
+
+  _notify 'inf' 'Enabling dovecot OAUTH2 authentification'
+  sed -i -e '/\!include auth-oauth2\.inc/s/^#//' /etc/dovecot/conf.d/10-auth.conf
+
+  _notify 'inf' 'Disabling plain login'
+  sed -i -e '/\!include auth-passwdfile\.inc/s/^/#/' /etc/dovecot/conf.d/10-auth.conf
+  sed -i -e 's/^auth_mechanisms =.*/auth_mechanisms =/' /etc/dovecot/conf.d/10-auth.conf
 
   return 0
 }

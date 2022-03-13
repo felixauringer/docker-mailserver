@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# TODO: Adapt for compatibility with LDAP
+# TODO: Adapt for compatibility with LDAP and OAUTH2
 # Only the cert renewal change detection may be relevant for LDAP?
 
 # shellcheck source=./helpers/index.sh

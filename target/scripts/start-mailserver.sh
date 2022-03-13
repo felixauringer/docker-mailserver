@@ -34,6 +34,7 @@ VARS[ENABLE_FAIL2BAN]="${ENABLE_FAIL2BAN:=0}"
 VARS[ENABLE_FETCHMAIL]="${ENABLE_FETCHMAIL:=0}"
 VARS[ENABLE_LDAP]="${ENABLE_LDAP:=0}"
 VARS[ENABLE_MANAGESIEVE]="${ENABLE_MANAGESIEVE:=0}"
+VARS[ENABLE_OAUTH2]="${ENABLE_OAUTH2:=0}"
 VARS[ENABLE_POP3]="${ENABLE_POP3:=0}"
 VARS[ENABLE_POSTGREY]="${ENABLE_POSTGREY:=0}"
 VARS[ENABLE_QUOTAS]="${ENABLE_QUOTAS:=1}"
@@ -111,6 +112,7 @@ function register_functions
   fi
 
   [[ ${ENABLE_LDAP} -eq 1 ]] && _register_setup_function '_setup_ldap'
+  [[ ${ENABLE_OAUTH2} -eq 1 ]] && _register_setup_function '_setup_oauth2'
   [[ ${ENABLE_POSTGREY} -eq 1 ]] && _register_setup_function '_setup_postgrey'
   [[ ${ENABLE_SASLAUTHD} -eq 1 ]] && _register_setup_function '_setup_saslauthd'
   [[ ${POSTFIX_INET_PROTOCOLS} != 'all' ]] && _register_setup_function '_setup_postfix_inet_protocols'
@@ -194,7 +196,7 @@ function register_functions
   [[ ${ENABLE_FAIL2BAN} -eq 1 ]] &&	_register_start_daemon '_start_daemons_fail2ban'
   [[ ${ENABLE_FETCHMAIL} -eq 1 ]] && _register_start_daemon '_start_daemons_fetchmail'
   [[ ${ENABLE_CLAMAV} -eq 1 ]] &&	_register_start_daemon '_start_daemons_clamav'
-  [[ ${ENABLE_LDAP} -eq 0 ]] && _register_start_daemon '_start_changedetector'
+  [[ ${ENABLE_LDAP} -eq 0 ]] && [[ ${ENABLE_OAUTH2} -eq 0 ]] && _register_start_daemon '_start_changedetector'
   [[ ${ENABLE_AMAVIS} -eq 1 ]] && _register_start_daemon '_start_daemons_amavis'
 }
 
