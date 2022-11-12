@@ -17,7 +17,8 @@ passdb {
 
 # https://doc.dovecot.org/configuration_manual/authentication/static_user_database/#authentication-static-user-database
 userdb {
-  driver = static
-  args = uid=docker gid=docker home=/var/mail/%d/%n
+  driver = passwd-file
+  args = username_format=%u /etc/dovecot/userdb
+  default_fields = uid=docker gid=docker home=/var/mail/%d/%n
 }
 

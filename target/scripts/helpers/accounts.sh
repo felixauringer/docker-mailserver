@@ -13,7 +13,7 @@ function _create_accounts
   : >/etc/postfix/vmailbox
   : >"${DOVECOT_USERDB_FILE}"
 
-  if [[ -f /tmp/docker-mailserver/postfix-accounts.cf ]] && [[ ${ENABLE_LDAP} -ne 1 ]] && [[ ${ENABLE_OAUTH2} -ne 1 ]]
+  if [[ -f /tmp/docker-mailserver/postfix-accounts.cf ]] && [[ ${ENABLE_LDAP} -ne 1 ]]
   then
     _notify 'inf' "Checking file line endings"
     sed -i 's|\r||g' /tmp/docker-mailserver/postfix-accounts.cf

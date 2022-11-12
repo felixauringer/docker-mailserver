@@ -9,7 +9,12 @@ readme_directory = no
 # myhostname =
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
-mydestination = $myhostname, localhost.$mydomain, localhost
+# mydestination = $myhostname, localhost.$mydomain, localhost
+# https://docker-mailserver.github.io/docker-mailserver/edge/faq/#can-i-use-nakedbare-domains-no-host-name
+# https://www.postfix.org/BASIC_CONFIGURATION_README.html # What domains to receive mail for
+# because of bare domain:
+# mydestination = $mydomain, localhost.$mydomain, localhost
+mydestination = localhost
 relayhost =
 mynetworks = 127.0.0.0/8 [::1]/128 [fe80::]/64
 mailbox_size_limit = 0
@@ -73,6 +78,8 @@ postscreen_bare_newline_action = enforce
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_path = /var/spool/postfix/private/auth
 smtpd_sasl_type = dovecot
+# this shouldn't be necessary: https://www.mail-archive.com/postfix-users@postfix.org/msg92911.html
+line_length_limit = 12288
 
 smtpd_sasl_security_options = noanonymous
 smtpd_sasl_local_domain = $mydomain
